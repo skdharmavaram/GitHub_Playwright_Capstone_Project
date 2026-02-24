@@ -5,7 +5,7 @@ export class NewRepoDetails {
         // Locators for NewRepoDetails elements
         this.createAnewFile = page.getByRole('link', { name: 'creating a new file' });
         this.fileNameInput = page.locator('//*[@aria-label="File name"]');
-        this.readmeTextArea = page.getByRole('textbox'); //page.locator('//*[@aria-label="File content"]');
+        this.readmeTextArea = page.getByRole('textbox');
         this.commitChanges = page.getByRole('button', { name: 'Commit changes...' });
     }
 

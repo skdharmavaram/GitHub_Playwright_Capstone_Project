@@ -1,6 +1,7 @@
 // @ts-check
-import { defineConfig, devices } from '@playwright/test';
-
+import { defineConfig } from '@playwright/test';
+import dotenv from 'dotenv';
+dotenv.config();
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -13,7 +14,9 @@ import { defineConfig, devices } from '@playwright/test';
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
+  globalSetup: './global-setup.js', //require.resolve('./global-setup.js'),
   testDir: './tests',
+  timeout: 60 * 1000,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -23,16 +26,23 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [['html', { open: 'never' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    baseURL: process.env.GITHUB_URL || 'https://github.com',
     viewport: null,
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    // trace: 'on-first-retry',
+    trace: 'retain-on-failure',
+    // Record video only when a test fails. See https://playwright.dev/docs/video#record-video-only-on-failure
+    video: 'retain-on-failure',
+    // screenshot: 'only-on-failure',
+    // headless: false, //optional but helful for debugging
+    // storageState: 'auth.json', // Reuse the authentication state for all tests
   },
+
 
   /* Configure projects for major browsers */
   projects: [
