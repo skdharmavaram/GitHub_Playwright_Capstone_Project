@@ -1,7 +1,7 @@
 The Challenges which I encountered while implementing this test automation script is
 1. Identifying the locators of realtime website
 2. In Login Page- 
-    1) No Challenges but encorpotating it in test page, it was observed that, for every test, we need to call the login and do the execution. So based on previous learnings, I used two methods like test.beforeAll and test.afterAll to include login functionality and logout one.
+    1) While encorpotating it in test page, it was observed that, for every test, we need to call the login and do the execution. So based on previous learnings, I used two methods like test.beforeAll and test.afterAll to include login functionality and logout one.
     2) Observation: While after login for the first time, github is asking for the two factor authentication. I tried to automate this process too, but taking more time where I'm lagging beyond on other scenarios. Hence till whatever I written the code, i kept a side, and which is not breaking my exsisting code, and I further continued. Will try to work on this later on. 
     3) Performed validation like checking dashboard is visible or not.
     4) Once this specific test is completed, I saaved the success screenshot with respective name along with ${Date.now()} method for uniqueness.
