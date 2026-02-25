@@ -14,9 +14,9 @@ dotenv.config();
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  globalSetup: './global-setup.js', //require.resolve('./global-setup.js'),
+  // globalSetup: './global-setup.js', //require.resolve('./global-setup.js'),
   testDir: './tests',
-  timeout: 60 * 1000,
+  timeout: 60 * 1000, // 60 seconds timeout for each test to accommodate potential delays in GitHub's response.
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

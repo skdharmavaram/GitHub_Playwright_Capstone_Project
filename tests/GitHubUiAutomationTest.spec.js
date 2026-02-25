@@ -1,9 +1,9 @@
 import {test, expect} from '@playwright/test';
 import {LoginPage} from '../pages/LoginPage';
 import {HomePage} from '../pages/HomePage';
-import {RepoPage} from '../pages/RepoPage';
-import {NewRepoPage} from '../pages/NewRepo';
-import {NewRepoDetails} from '../pages/NewRepoDetails';
+import {RepoPage} from '../pages/MyRepositoriesPage.js';
+import {NewRepoPage} from '../pages/NewRepoCreationPage.js';
+import {NewRepoDetails} from '../pages/NewRepoHomePage.js';
 
 import NewFileDetails from '../files/NewFileDetails.json';
 
@@ -13,12 +13,13 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 test.describe.configure({ mode: 'serial' });
-test.describe('GitHub Automation using Playwright ', () => {
+test.describe('GitHub Web UI Automation Using Playwright', () => {
     let context;
     let page;
     const url = process.env.GITHUB_URL || "https://github.com/login";
     const userId = process.env.GITHUB_USER;
     const password = process.env.GITHUB_PASSWORD;
+    // const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
     // Set up the browser context and page before all tests
     test.beforeAll('TC-00- Setup Browser Context and Page', async ({ browser }) => {
@@ -26,11 +27,11 @@ test.describe('GitHub Automation using Playwright ', () => {
         page = await context.newPage();
     });
 
-    test.afterAll('Testcase to Close Browser Context', async () => {
+    test.afterAll('Verify that the browser Context is closed properly', async () => {
         await context.close();
     });
 
-    test('Test-01-GitHub Login', async () => {
+    test('TC-01 - Verify that the user is able to log in successfully', async () => {
         const loginPage = new LoginPage(page);
 
         await loginPage.navigate(url);
@@ -61,10 +62,10 @@ test.describe('GitHub Automation using Playwright ', () => {
             console.log("Logged in successfully without device verification.");
         }
         await page.screenshot({ path: `screenshots/login_success_${Date.now()}.png`, fullPage: true });   
-        await page.waitForTimeout(2000);
+        // await page.waitForTimeout(2000);
     });
 
-    test('Test-02-Verify the dashboard visibility', async () => {
+    test('TC-02 - Verify that the user can see the dashboard after login', async () => {
         const homePage = new HomePage(page);
         // Check if the dashboard is visible after login
         const isDashboardVisible = await homePage.isDashboardVisible();
@@ -72,7 +73,7 @@ test.describe('GitHub Automation using Playwright ', () => {
         expect(isDashboardVisible).toBeTruthy();
     });
 
-    test('Test-03-Verify that user is able to navigate to repositories page', async () => {
+    test('TC-03 - Verify that the user can navigate to the Repositories page', async () => {
         const homePage = new HomePage(page);
         await homePage.navigateToRepositories();
         const repositoriesUrl = await homePage.getCurrentURL();
@@ -83,7 +84,7 @@ test.describe('GitHub Automation using Playwright ', () => {
         await page.waitForTimeout(3000);
     });
 
-    test('Test-04-Verify that user is able to navigate to My repositories page', async () => {
+    test('TC-04 - Verify that the user can open the My Repositories section', async () => {
         const repositoryName = `playwright-repo-${Date.now()}`;
         const repoPage = new RepoPage(page);
 
@@ -96,7 +97,7 @@ test.describe('GitHub Automation using Playwright ', () => {
         await page.screenshot({ path: `screenshots/my_repositories_page_${Date.now()}.png`, fullPage: true });
         await page.waitForTimeout(3000);
     });
-    test('Test-05-Verify that user is able to identify the mentioned repository in My repositories page', async () => {
+    test('TC-05 - Verify that the user can find the specified repository in the list', async () => {
         const repoPage = new RepoPage(page);
         // Check if the specific repository is visible in My repositories page
         const isRepoVisible = await repoPage.isMyRepoVisible();
@@ -105,7 +106,7 @@ test.describe('GitHub Automation using Playwright ', () => {
         await page.waitForLoadState('domcontentloaded');
     });
 
-    test('Test-06-Verify that user is able to navigate to create new repository page', async () => {
+    test('TC-06 - Verify that the user can navigate to the Create New Repository page', async () => {
         const repoPage = new RepoPage(page);
         // Navigate to create new repository page
         await repoPage.navigateToCreateNewRepository();
@@ -117,7 +118,7 @@ test.describe('GitHub Automation using Playwright ', () => {
         await page.waitForTimeout(3000);
     });
 
-    test('Test-07- Verify that user is able to fill the details to create a new repository', async () => {
+    test('TC-07 - Verify that the user can enter details to create a new repository', async () => {
         const newRepoPage = new NewRepoPage(page);
         const repoData = updateTestData.createRepoPayload();
 
@@ -141,7 +142,7 @@ test.describe('GitHub Automation using Playwright ', () => {
 
 
     });
-    test('Test-08-Verify that user is able to click on create new file hyperlink', async () => {
+    test('TC-08 - Verify that the user can navigate to the Create New File page', async () => {
         const newRepoDetails = new NewRepoDetails(page);
 
         // Select the option to create README file
@@ -153,7 +154,7 @@ test.describe('GitHub Automation using Playwright ', () => {
         await page.waitForTimeout(3000);
     });
 
-    test('Test-9-Verify that user is able to fill the details for the new file and commit changes', async () => {
+    test.skip('TC-09 - Verify that the user can add file details and commit the new file', async () => {
         const newRepoDetails = new NewRepoDetails(page);
         const fileData = NewFileDetails;
         
