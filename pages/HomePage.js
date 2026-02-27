@@ -3,13 +3,17 @@ export class HomePage {
         this.page = page;
 
         // Locators for HomePage elements
-        this.dashboard = page.locator('.styles-module__contextCrumbLast__tI2e3');
+        this.dashboard = page.locator("//span[contains(text(), 'Dashboard')]");
         this.repositories = page.getByRole('link', { name: 'Repositories' });
-
     }
-    // Method to verify that whether dashboard is visible
+    // Method to verify click on dashboard
+    async dashboardClick() {
+        return await this.dashboard.click(); // Click on the dashboard element
+    }
+
+    // Method to check if the dashboard is visible
     async isDashboardVisible() {
-        return await this.dashboard.isVisible();
+        return await this.dashboard.isVisible(); // Check if the dashboard element is visible
     }
 
     // Method to navigate to repositories page

@@ -1,15 +1,23 @@
-export class NewRepoPage {
+export class NewRepoCreationPage {
     constructor(page) {
         this.page = page;
 
-        // Locators for NewRepoPage elements
+        // Locators for NewRepoCreationPage elements
+        this.newRepositoryButton = page.getByText('New repository');
         this.repositoryNameInput = page.locator('#repository-name-input');
         this.descriptionInput = page.getByRole('textbox', { name: 'Description' }); //page.getByLabel('Description');
         this.visibilityDropdown = page.locator('#visibility-anchor-button');
         this.privateOption = page.getByText('Private');
         this.publicOption = page.getByText('Public');
         this.createRepositoryButton = page.getByRole('button', { name: 'Create repository' });
+        
     }
+
+    // Method to navigate to create new repository page
+    async navigateToCreateNewRepository() {
+        await this.newRepositoryButton.click();
+    }
+
 
     // Method to fill the fields to create a new repository
     async createNewRepository(repoData) {

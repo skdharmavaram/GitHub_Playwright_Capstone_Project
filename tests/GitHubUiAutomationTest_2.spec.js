@@ -1,9 +1,9 @@
 import {test, expect} from '@playwright/test';
 import {LoginPage} from '../pages/LoginPage.js';
 import {HomePage} from '../pages/HomePage.js';
-import {RepoPage} from '../pages/RepoPage.js';
-import {NewRepoPage} from '../pages/NewRepo.js';
-import {NewRepoDetails} from '../pages/NewRepoDetails.js';
+import {RepoPage} from '../pages/MyRepositoriesPage.js';
+import {NewRepoPage} from '../pages/NewRepoCreationPage.js';
+import {NewRepoDetails} from '../pages/NewRepoHomePage.js';
 
 import NewFileDetails from '../files/NewFileDetails.json';
 

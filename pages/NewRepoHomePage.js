@@ -1,11 +1,11 @@
-export class NewRepoDetails {
+export class NewRepoHomePage {
     constructor(page) {
         this.page = page;
 
-        // Locators for NewRepoDetails elements
+        // Locators for NewRepoHomePage elements
         this.createAnewFile = page.getByRole('link', { name: 'creating a new file' });
         this.fileNameInput = page.locator('//*[@aria-label="File name"]');
-        this.readmeTextArea = page.getByRole('textbox');
+        this.readmeTextArea = page.locator("//div[@role='textbox']");
         this.commitChanges = page.getByRole('button', { name: 'Commit changes...' });
     }
 

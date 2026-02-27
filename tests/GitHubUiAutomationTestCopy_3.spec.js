@@ -22,7 +22,7 @@ test.describe('GitHub Web UI Automation Using Playwright', () => {
     // const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
     // Set up the browser context and page before all tests
-    test.beforeAll('TC-00- Setup Browser Context and Page', async ({ browser }) => {
+    test.beforeAll('TC‑00 – Verify that the browser context and page are set up properly', async ({ browser }) => {
         context = await browser.newContext();
         page = await context.newPage();
     });
@@ -62,7 +62,6 @@ test.describe('GitHub Web UI Automation Using Playwright', () => {
             console.log("Logged in successfully without device verification.");
         }
         await page.screenshot({ path: `screenshots/login_success_${Date.now()}.png`, fullPage: true });   
-        // await page.waitForTimeout(2000);
     });
 
     test('TC-02 - Verify that the user can see the dashboard after login', async () => {
@@ -77,8 +76,8 @@ test.describe('GitHub Web UI Automation Using Playwright', () => {
         const homePage = new HomePage(page);
         await homePage.navigateToRepositories();
         const repositoriesUrl = await homePage.getCurrentURL();
-        console.log("URL after navigating to repositories:", repositoriesUrl);
         expect(repositoriesUrl).toBe('https://github.com/repos');
+        console.log("URL after navigating to repositories:", repositoriesUrl);
         await page.waitForLoadState('domcontentloaded');
         await page.screenshot({ path: `screenshots/repositories_page_${Date.now()}.png`, fullPage: true }); 
     });
@@ -92,8 +91,8 @@ test.describe('GitHub Web UI Automation Using Playwright', () => {
         // soft wait for 2 seconds to allow the page to load completely and display my repositories
         await page.waitForNavigation({ waitUntil: 'domcontentloaded' });
         const myRepositoriesUrl = await page.url();
-        console.log("URL after navigating to My repositories:", myRepositoriesUrl);
         expect(myRepositoriesUrl).toContain('https://github.com/repos');
+        console.log("URL after navigating to My repositories:", myRepositoriesUrl);
         await page.waitForLoadState('domcontentloaded');
         await page.screenshot({ path: `screenshots/my_repositories_page_${Date.now()}.png`, fullPage: true });
     });
@@ -111,9 +110,9 @@ test.describe('GitHub Web UI Automation Using Playwright', () => {
         // Navigate to create new repository page
         await repoPage.navigateToCreateNewRepository();
         const newRepoUrl = await page.url();
-        console.log("URL after navigating to create new repository:", newRepoUrl);
-        await page.waitForLoadState('domcontentloaded');
         await expect(page).toHaveURL('https://github.com/new');
+        console.log("URL after navigating to create new repository:", newRepoUrl);
+        await page.waitForLoadState('domcontentloaded');        
         await page.screenshot({ path: `screenshots/create_new_repository_page_${Date.now()}.png`, fullPage: true });
     });
 
@@ -160,8 +159,8 @@ test.describe('GitHub Web UI Automation Using Playwright', () => {
         await newRepoDetails.clickCommitChanges();
         await page.waitForNavigation({ waitUntil: 'domcontentloaded' });
         const repoUrl = await page.url();
-        console.log("URL after committing new file:", repoUrl);
         expect(repoUrl).toContain(`/${fileData.fileName}`); //expect(repoUrl).toContain(`/${userId}/${repoData.name}`);
+        console.log("URL after committing new file:", repoUrl);
         await page.screenshot({ path: `screenshots/file_created_${Date.now()}.png`, fullPage: true });
     });
 
@@ -193,4 +192,4 @@ test.describe('GitHub Web UI Automation Using Playwright', () => {
 
 
 // To run the test, use the following command in the terminal:
-// npx playwright test tests/GitHubUiAutomationTest.spec.js --headed  
+// npx playwright test tests/GitHubUiAutomationTestCopy_3.spec.js --headed  

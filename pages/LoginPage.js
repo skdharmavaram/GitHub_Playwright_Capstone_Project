@@ -24,8 +24,10 @@ export class LoginPage {
             el.value = password;
             el.dispatchEvent(new Event('input', { bubbles: true }));
         }, password);
-        await this.page.waitForTimeout(3000);
         await this.loginButton.click();
+        // expect(this.page.url()).toBe('https://github.com/');
+        // await this.page.waitForLoadState('domcontentloaded');
+        // await expect(this.page).toHaveTitle(/Sign in to GitHub/);
     }
 
     async getCurrentURL() {

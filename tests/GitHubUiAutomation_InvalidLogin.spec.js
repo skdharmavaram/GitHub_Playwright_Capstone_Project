@@ -1,9 +1,9 @@
 import {test, expect} from '@playwright/test';
 import {LoginPage} from '../pages/LoginPage.js';
 import {HomePage} from '../pages/HomePage.js';
-import {RepoPage} from '../pages/RepoPage.js';
-import {NewRepoPage} from '../pages/NewRepo.js';
-import {NewRepoDetails} from '../pages/NewRepoDetails.js';
+import {RepoPage} from '../pages/MyRepositoriesPage.js';
+import {NewRepoPage} from '../pages/NewRepoCreationPage.js';
+import {NewRepoDetails} from '../pages/NewRepoHomePage.js';
 
 import NewFileDetails from '../files/NewFileDetails.json';
 
@@ -22,16 +22,13 @@ test.describe('GitHub Automation using Playwright ', () => {
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
     // Set up the browser context and page before all tests
-    test.beforeAll('TC-00- Setup Browser Context and Page', async ({ browser }) => {
-        context = await browser.newContext();
-        page = await context.newPage();
-    });
+    // test.beforeAll('TC-00- Setup Browser Context and Page', async ({ browser }) => {
+    //     context = await browser.newContext();
+    //     // page = await context.newPage();
+    // });
 
-    test.afterAll('Test to Close Browser Context', async () => {
-        await context.close();
-    });
 
-    test('Test-01-Verify user is able to log in to GitHub using invalid credentials', async () => {
+    test('Test-01-Verify user is able to log in to GitHub using invalid credentials', async ({ page }) => {
         const loginPage = new LoginPage(page);
 
         await loginPage.navigate(url);
