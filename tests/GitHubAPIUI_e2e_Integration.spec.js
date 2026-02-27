@@ -47,4 +47,4 @@ test('Create a repository via API and verify in UI', async ({page}) => {
 });
 
 
-// to run this specific file, use the command: npx playwright test tests/apiToUi.e2e.spec.js
+// to run this specific file, use the command: npx playwright test tests/GitHubAPIUI_e2e_Integration.spec.js

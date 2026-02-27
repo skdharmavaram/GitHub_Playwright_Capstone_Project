@@ -37,7 +37,7 @@ export default defineConfig({
     // /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     // trace: 'retain-on-failure',
     // Record video only when a test fails. See https://playwright.dev/docs/video#record-video-only-on-failure
-    video: 'on',
+    video: 'retain-on-failure',
     screenshot: 'only-on-failure',
     headless: false, //optional but helful for debugging
     // storageState: 'auth.json', // Reuse the authentication state for all tests

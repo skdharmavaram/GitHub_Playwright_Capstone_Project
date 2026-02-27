@@ -19,11 +19,14 @@ The primary suite lives in `tests/GitHubUiAutomationTestCopy_3.spec.js` and exec
 
 A separate invalid-login test (`tests/GitHubUiAutomation_InvalidLogin.spec.js`) captures failure behavior with video recording. video recordings are stored in the default Playwright output directory.
 
+A spearate GitHub API UI Integration test implemented (`tests/GitHubAPIUI_e2e_Integration.spec.js`) which is showcases an API-driver test setup and teardown strategy combined with UI-based validation to ensure backend and frontend consistency. It follows a modular architecture with Playwright request fixtures, dynamic test data generation, and clean environment management. 
+
 Additional experiment suites were added to explore global storage state and reduced case sets:
 - `tests/GitHubUiTest.spec.js` – pared-down tests of GitHub page
 - `tests/GitHubUiAutomationTest_2.spec.js` & `tests/GitHubUiAutomationTest.spec.js` – global login state approaches where I observed that we need to do some modifications in current pages and test, hence I decided do it in seperate project. 
 
 Note: Credentials are secured in a `.env` file (ignored via `.gitignore`).
+
 
 ## Page Object Model
 
